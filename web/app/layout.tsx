@@ -1,0 +1,66 @@
+import type { Metadata } from "next";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+
+import { Nav } from "@/components/nav";
+
+import "./globals.css";
+
+const grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-grotesk",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono-jb",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  title: "BactroGen Research",
+  description:
+    "Autonomous AI for bacteriocin discovery and computational antimicrobial design.",
+  icons: {
+    icon: "/branding/bactrogen-favicon.png",
+    apple: "/branding/bactrogen-mark.png",
+  },
+  openGraph: {
+    title: "BactroGen Research",
+    description: "Autonomous AI for bacteriocin discovery and computational antimicrobial design.",
+    images: ["/branding/bactrogen-wordmark.png"],
+  },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${grotesk.variable} ${mono.variable}`}>
+      <body className="min-h-screen bg-ink text-text antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-cyan focus:bg-panel focus:px-3 focus:py-2 focus:text-[13px]"
+        >
+          Skip to content
+        </a>
+        <Nav />
+        <main id="main">{children}</main>
+        <footer className="mt-24 border-t border-line">
+          <div className="mx-auto flex max-w-[1180px] flex-col gap-3 px-4 py-8 text-[12px] leading-relaxed text-faint sm:px-6">
+            <p className="max-w-[72ch]">
+              BactroGen Research reports three kinds of claim and never merges them:
+              evidence extracted from the literature, candidates proposed for
+              testing, and predictions produced by a simulator. None of them is
+              an experimental result. Nothing shown here has been measured at a
+              bench.
+            </p>
+            <p className="text-[11px] text-faint">
+              Computational predictions are presented with their uncertainty and require
+              experimental validation.
+            </p>
+          </div>
+        </footer>
+      </body>
+    </html>
+  );
+}
